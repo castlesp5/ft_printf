@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 int	ihatenorm(char *s, va_list list)

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsigned.c                                         :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iboujdad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 01:26:52 by iboujdad          #+#    #+#             */
-/*   Updated: 2026/02/28 01:26:52 by iboujdad         ###   ########.fr       */
+/*   Created: 2026/02/28 00:36:33 by iboujdad          #+#    #+#             */
+/*   Updated: 2026/02/28 00:36:33 by iboujdad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_putuns(unsigned int n, int i)
-{
-	char	x;
+# include <stdarg.h>
+# include <unistd.h>
 
-	if (n >= 10)
-		i = ft_putuns(n / 10, i);
-	x = (n % 10) + 48;
-	i += write(1, &x, 1);
-	return (i);
-}
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_puthex(unsigned long n, char *base, int i);
+int	ft_putptr(void *ptr);
+int	ft_putnbr(int nb, int i);
+int	ft_putuns(unsigned int n, int i);
+
+#endif
