@@ -32,8 +32,6 @@ int	ihatenorm(char *s, va_list list)
 		z += ft_putnbr(va_arg(list, int), 0);
 	else if (*s == 'u')
 		z += ft_putuns(va_arg(list, unsigned int), 0);
-	else
-		z += write(1, &s, 1);
 	return (z);
 }
 
@@ -51,10 +49,15 @@ int	ft_printf(char *s, ...)
 		if (s[i] == '%')
 		{
 			i++;
+			if (s[i] == '\0')
+			{
+				z += write(1, &s[i - 1], 1);
+				return (z);
+			}
 			z += ihatenorm(&s[i], list);
 		}
 		else
-			z += write(1, &s[i], 1);
+			write(1, &s[i], 1);
 		i++;
 	}
 	va_end(list);
@@ -68,12 +71,6 @@ int	main(void)
 	int	d;
 
 	x = 42;
-	z = ft_printf("%c, %s, %p, asd, %d, %i, %u, %x, %X\n", 'a', "Test", &x, x, x
-			+ 1, -1, 10, 42);
-	d = printf("%c, %s, %p, asd, %d, %i, %u, %x, %X\n", 'a', "Test", &x, x, x
-			+ 1, -1, 10, 42);
-	// d = ft_printf("%u\n", -1);
-	// z = printf("%u\n", -1);
-	ft_printf("%d\n", d);
-	ft_printf("%d\n", z);
+	d = ft_printf("%p", &x);
+	printf("\n%d", d);
 }

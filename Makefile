@@ -8,7 +8,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
-	gcc $(NAME)
+	gcc $(NAME) -Wall -Wextra -Werror
 
 clean:
 	rm -rf $(OBJS)
