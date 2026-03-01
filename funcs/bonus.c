@@ -12,6 +12,29 @@
 
 #include "ft_printf.h"
 
+int	spacepadd(int n, char *width)
+{
+	int		padd;
+	char	*str;
+	int		z;
+	int		w;
+
+	w = ft_atoi(width);
+	z = 0;
+	padd = 0;
+	str = ft_itoa(n);
+	if ((size_t)w > ft_strlen(str))
+	{
+		padd += w - ft_strlen(str);
+		while (padd--)
+			z += write(1, " ", 1);
+		z += write(1, str, ft_strlen(str));
+	}
+	else
+		z += write(1, str, ft_strlen(str));
+	return (z);
+}
+
 int	padd(int n, char *width)
 {
 	int		padd;
@@ -19,7 +42,7 @@ int	padd(int n, char *width)
 	int		z;
 	int		w;
 
-	w = atoi(width);
+	w = ft_atoi(width);
 	z = 0;
 	padd = 0;
 	if (n < 0)

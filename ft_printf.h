@@ -26,4 +26,5 @@ int	ft_putptr(void *ptr);
 int	ft_putnbr(int nb, int i);
 int	ft_putuns(unsigned int n, int i);
 int	padd(int n, char *width);
+int	spacepadd(int n, char *width);
 #endif

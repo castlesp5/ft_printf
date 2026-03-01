@@ -19,8 +19,8 @@ int	main(void)
 	int	x;
 
 	x = -16;
-	d = ft_printf("%06d\n", x);
-	z = printf("\n%06d", x);
+	d = ft_printf("%010dfef\n", x);
+	z = printf("\n%010dfef", x);
 	printf("\n%d\n", d);
 	printf("\n%d\n", z);
 }

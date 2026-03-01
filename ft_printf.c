@@ -23,7 +23,16 @@ int	ihatenorm(char *s, va_list list, int *parindex)
 	if (s[i] == '0')
 	{
 		z += padd(va_arg(list, int), &s[++i]);
-		(*parindex) += 2;
+		if (ft_atoi(&s[i]) != 0)
+			(*parindex) += 2;
+		else
+			(*parindex)++;
+	}
+	else if ((s[i] - '0') >= 1 && (s[i] - '0') <= 9)
+	{
+		z += spacepadd(va_arg(list, int), &s[i]);
+		if (ft_atoi(&s[i]) != 0)
+			(*parindex) += 1;
 	}
 	else if (s[i] == 'c')
 		z += ft_putchar(va_arg(list, int));
@@ -64,6 +73,8 @@ int	ft_printf(char *s, ...)
 				return (z);
 			}
 			z += ihatenorm(&s[i], list, &i);
+			if (!(s[i] >= 'a' && s[i] <= 'z'))
+				i++;
 		}
 		else
 			z += write(1, &s[i], 1);
