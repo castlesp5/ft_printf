@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsigned.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iboujdad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 01:26:52 by iboujdad          #+#    #+#             */
-/*   Updated: 2026/02/28 01:26:52 by iboujdad         ###   ########.fr       */
+/*   Created: 2026/02/28 23:42:41 by iboujdad          #+#    #+#             */
+/*   Updated: 2026/03/01 00:50:47 by iboujdad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-int	ft_puthex2(unsigned long n, char *base, int i)
+int	main(void)
 {
-	long	x;
+	int	z;
+	int	d;
+	int	x;
 
-	if (n >= 16)
-		i = ft_puthex2(n / 16, base, i);
-	x = (n % 16);
-	i += write(1, &base[x], 1);
-	return (i);
-}
-
-int	ft_putuns(unsigned int n, int i)
-{
-	char	x;
-
-	if (n >= 10)
-		i = ft_putuns(n / 10, i);
-	x = (n % 10) + 48;
-	i += write(1, &x, 1);
-	return (i);
+	x = -16;
+	d = ft_printf("%06d\n", x);
+	z = printf("\n%06d", x);
+	printf("\n%d\n", d);
+	printf("\n%d\n", z);
 }

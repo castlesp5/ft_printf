@@ -22,6 +22,11 @@ int	ft_putstr(char *s)
 	int	i;
 
 	i = 0;
+	if (s == NULL)
+	{
+		i = write(1, "(null)", 6);
+		return (i);
+	}
 	while (s[i])
 		write(1, &s[i++], 1);
 	return (i);
@@ -40,7 +45,7 @@ int	ft_putptr(void *ptr)
 	}
 	p = (unsigned long)ptr;
 	i += write(1, "0x", 2);
-	i += ft_puthex(p, "0123456789abcdef", 0);
+	i += ft_puthex2(p, "0123456789abcdef", 0);
 	return (i);
 }
 
@@ -53,25 +58,21 @@ int	ft_putnbr(int nb, int i)
 	if (nb < 0)
 	{
 		i += write(1, "-", 1);
-		n *= -n;
+		n = -n;
 	}
 	if (n >= 10)
-	{
 		i = ft_putnbr(n / 10, i);
-	}
 	x = (n % 10) + 48;
 	i += write(1, &x, 1);
 	return (i);
 }
 
-int	ft_puthex(unsigned long n, char *base, int i)
+int	ft_puthex(unsigned int n, char *base, int i)
 {
 	long	x;
 
 	if (n >= 16)
-	{
 		i = ft_puthex(n / 16, base, i);
-	}
 	x = (n % 16);
 	i += write(1, &base[x], 1);
 	return (i);
