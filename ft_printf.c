@@ -63,23 +63,27 @@ int	ihatenorm(char *s, t_list *head, int *parindex)
 	return (z);
 }
 
-t_list	*parse(char *s, va_list list)
+int	checkend(char *s, t_list **head, int *parindex)
 {
+	t_list	*tmp;
+	void	*t;
+	int		z;
 	int		i;
-	t_list	*head;
 
+	z = 0;
 	i = 0;
-	head = NULL;
-	while (s[i])
+	if (s[i] == '%')
+		z += write(1, &s[i], 1);
+	else
 	{
-		if (s[i] == '%')
-		{
-			i++;
-			parsing_elements(&s[i], list, &head);
-		}
-		i++;
+		z += ihatenorm(&s[i], *head, parindex);
+		tmp = *head;
+		t = (*head)->content;
+		(*head) = (*head)->next;
+		free(t);
+		free(tmp);
 	}
-	return (head);
+	return (z);
 }
 
 int	doz_3la_string(char *s, t_list **head)
@@ -96,13 +100,7 @@ int	doz_3la_string(char *s, t_list **head)
 			i++;
 			if (s[i] == '\0')
 				return (z);
-			else if (s[i] == '%')
-				z += write(1, &s[i], 1);
-			else
-			{
-				z += ihatenorm(&s[i], *head, &i);
-				(*head) = (*head)->next;
-			}
+			z += checkend(&s[i], head, &i);
 		}
 		else
 			z += write(1, &s[i], 1);

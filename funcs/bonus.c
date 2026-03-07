@@ -30,13 +30,14 @@ int	spacepadd(t_list *n, char *width)
 		return (z);
 	}
 	else
-		str = *(char **)(n)->content;
+		str = ft_strdup(*(char **)(n)->content);
 	if ((size_t)w > ft_strlen(str))
 	{
 		padd += w - ft_strlen(str);
 		while (padd--)
 			z += write(1, " ", 1);
 	}
+	free(str);
 	return (z);
 }
 
@@ -62,6 +63,7 @@ int	padd(t_list *n, int w)
 		while (padd--)
 			z += write(1, "0", 1);
 	}
+	free(str);
 	return (z);
 }
 
@@ -109,12 +111,13 @@ int	zeropadd(t_list *n, char *width)
 	if (n->type == 'd' || n->type == 'i' || n->type == 'c')
 		str = ft_itoa(*(int *)n->content);
 	else if (n->type == 's')
-		str = *(char **)n->content;
+		str = ft_strdup(*(char **)n->content);
 	else if (n->type == 'x' || n->type == 'X' || n->type == 'p')
 		return (x_tt(n, w));
 	else if (n->type == 'u')
 		str = ft_utoa(*(unsigned int *)n->content);
 	padd = paddval(w, str, n);
+	free(str);
 	while (padd--)
 		z += write(1, " ", 1);
 	return (z);

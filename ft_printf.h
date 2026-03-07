@@ -35,7 +35,7 @@ int		writing(t_list *head);
 char	*ft_utoa(unsigned int n);
 char	*ft_ltoa(long n);
 void	parsing_elements(char *s, va_list list, t_list **head);
-int		writing(t_list *head);
+t_list	*parse(char *s, va_list list);
 int		conversions(char *s, t_list *head);
 int		precs(char *s, int i, t_list *head);
 int		precint(char *s, int i, t_list *head);

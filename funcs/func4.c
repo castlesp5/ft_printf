@@ -21,18 +21,16 @@ int	u_type(t_list *n, int w)
 	str = ft_utoa(*(unsigned int *)n->content);
 	z = 0;
 	if ((size_t)w < ft_strlen(str))
-	{
 		z += writing(n);
-		return (z);
-	}
 	else
 	{
 		padd = w - ft_strlen(str);
 		while (padd--)
 			z += write(1, "0", 1);
 		z += writing(n);
-		return (z);
 	}
+	free(str);
+	return (z);
 }
 
 int	d_type(t_list *n, int w)
@@ -59,6 +57,7 @@ int	d_type(t_list *n, int w)
 			z += write(1, "0", 1);
 	}
 	z += ft_putnbr(nb, 0, 1);
+	free(str);
 	return (z);
 }
 

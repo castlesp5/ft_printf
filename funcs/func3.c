@@ -74,8 +74,8 @@ int	precs(char *s, int i, t_list *head)
 	{
 		if (s[0] == '-')
 		{
-			z += writing(head);
-			z += zeropadd(head, &s[1]);
+			z += write(1, *(char **)head->content, ft_atoi(&s[i + 1]));
+			z += modified_spaceadd(head, &s[1], ft_atoi(&s[++i]));
 			return (z);
 		}
 		z += modified_spaceadd(head, &s[0], ft_atoi(&s[++i]));

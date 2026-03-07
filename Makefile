@@ -2,7 +2,7 @@ NAME = libftprintf.a
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I. -g
+CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I.
 SRCS = ft_printf.c\
 			 funcs/func.c\
 			 funcs/unsigned.c\
