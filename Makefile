@@ -32,6 +32,6 @@ fclean: clean
 re: fclean all
 
 test: all
-	cc main.c $(CFLAGS) -L. -lftprintf -Llibft -lft -o test
+	cc main.c $(CFLAGS) -L. -lftprintf -Llibft -lft -o tester
 
 .PHONY: all clean fclean re
