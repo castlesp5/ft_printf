@@ -6,7 +6,7 @@
 /*   By: iboujdad <iboujdad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 22:34:14 by iboujdad          #+#    #+#             */
-/*   Updated: 2025/10/22 15:01:50 by iboujdad         ###   ########.fr       */
+/*   Updated: 2026/03/02 02:37:24 by iboujdad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_list
 {
 	void			*content;
+	char			type;
 	struct s_list	*next;
 }					t_list;
 
@@ -56,7 +57,7 @@ void				*ft_memchr(const void *str, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_lstadd_front(t_list **lst, t_list *new);
-void				ft_lstadd_back(t_list **alst, t_list *new);
+void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));

@@ -6,60 +6,87 @@
 /*   By: iboujdad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 03:08:58 by iboujdad          #+#    #+#             */
-/*   Updated: 2026/03/01 19:59:09 by iboujdad         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:30:26 by iboujdad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	ihatenorm(char *s, va_list list, int *parindex)
+int	kaynprec(char *s, int i, t_list *head, int *z)
+{
+	while (s[i] != '\0' && s[i] != 'c' && s[i] != 's' && s[i] != 'd'
+		&& s[i] != 'i' && s[i] != 'x' && s[i] != 'X' && s[i] != 'p'
+		&& s[i] != 'u')
+	{
+		if (s[i] == '.')
+		{
+			if (head->type == 's')
+			{
+				*z += precs(s, i, head);
+				return (1);
+			}
+			else if (head->type == 'd' || head->type == 'i' || head->type == 'x'
+				|| head->type == 'X' || head->type == 'u')
+			{
+				*z += machistring(s, i, head);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ihatenorm(char *s, t_list *head, int *parindex)
 {
 	int	z;
 	int	i;
 
 	z = 0;
 	i = 0;
-	if (s[i] == '0')
+	if (kaynprec(s, 0, head, &z))
 	{
-		z += padd(va_arg(list, int), &s[++i]);
-		if (ft_atoi(&s[i]) != 0)
-			(*parindex) += 2;
-		else
+		while (s[i] == '-' || (s[i] >= '0' && s[i] <= '9') || s[i] == '.')
+		{
 			(*parindex)++;
+			i++;
+		}
+		return (z);
 	}
-	else if ((s[i] - '0') >= 1 && (s[i] - '0') <= 9)
+	z += conversions(s, head);
+	while (s[i] == '-' || (s[i] >= '0' && s[i] <= '9') || s[i] == '.')
 	{
-		z += spacepadd(va_arg(list, int), &s[i]);
-		if (ft_atoi(&s[i]) != 0)
-			(*parindex) += 1;
+		(*parindex)++;
+		i++;
 	}
-	else if (s[i] == 'c')
-		z += ft_putchar(va_arg(list, int));
-	else if (s[i] == 's')
-		z += ft_putstr(va_arg(list, char *));
-	else if (s[i] == 'x')
-		z += ft_puthex(va_arg(list, int), "0123456789abcdef", 0);
-	else if (s[i] == 'X')
-		z += ft_puthex(va_arg(list, int), "0123456789ABCDEF", 0);
-	else if (s[i] == 'p')
-		z += ft_putptr(va_arg(list, void *));
-	else if (s[i] == 'd' || *s == 'i')
-		z += ft_putnbr(va_arg(list, int), 0);
-	else if (s[i] == 'u')
-		z += ft_putuns(va_arg(list, unsigned int), 0);
-	else if (s[i] == '%')
-		z += write(1, "%", 1);
 	return (z);
 }
 
-int	ft_printf(char *s, ...)
+t_list	*parse(char *s, va_list list)
 {
 	int		i;
-	int		z;
-	va_list	list;
+	t_list	*head;
 
-	va_start(list, s);
+	i = 0;
+	head = NULL;
+	while (s[i])
+	{
+		if (s[i] == '%')
+		{
+			i++;
+			parsing_elements(&s[i], list, &head);
+		}
+		i++;
+	}
+	return (head);
+}
+
+int	doz_3la_string(char *s, t_list **head)
+{
+	int	i;
+	int	z;
+
 	i = 0;
 	z = 0;
 	while (s[i] != '\0')
@@ -68,18 +95,32 @@ int	ft_printf(char *s, ...)
 		{
 			i++;
 			if (s[i] == '\0')
-			{
-				z += write(1, &s[i - 1], 1);
 				return (z);
+			else if (s[i] == '%')
+				z += write(1, &s[i], 1);
+			else
+			{
+				z += ihatenorm(&s[i], *head, &i);
+				(*head) = (*head)->next;
 			}
-			z += ihatenorm(&s[i], list, &i);
-			if (!(s[i] >= 'a' && s[i] <= 'z'))
-				i++;
 		}
 		else
 			z += write(1, &s[i], 1);
 		i++;
 	}
+	return (z);
+}
+
+int	ft_printf(char *s, ...)
+{
+	int		z;
+	va_list	list;
+	t_list	*head;
+
+	va_start(list, s);
+	z = 0;
+	head = parse(s, list);
+	z += doz_3la_string(s, &head);
 	va_end(list);
 	return (z);
 }

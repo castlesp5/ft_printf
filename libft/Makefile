@@ -8,7 +8,7 @@ OBJSB = $(SRCSB:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) bonus
 	ar -rcs $(NAME) $(OBJS)
 
 bonus: $(OBJSB)

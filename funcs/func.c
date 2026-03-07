@@ -49,7 +49,7 @@ int	ft_putptr(void *ptr)
 	return (i);
 }
 
-int	ft_putnbr(int nb, int i)
+int	ft_putnbr(int nb, int i, int flag)
 {
 	long	n;
 	char	x;
@@ -57,11 +57,12 @@ int	ft_putnbr(int nb, int i)
 	n = (long)nb;
 	if (nb < 0)
 	{
-		i += write(1, "-", 1);
+		if (!flag)
+			i += write(1, "-", 1);
 		n = -n;
 	}
 	if (n >= 10)
-		i = ft_putnbr(n / 10, i);
+		i = ft_putnbr(n / 10, i, 1);
 	x = (n % 10) + 48;
 	i += write(1, &x, 1);
 	return (i);

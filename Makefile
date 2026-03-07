@@ -6,7 +6,12 @@ CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I. -g
 SRCS = ft_printf.c\
 			 funcs/func.c\
 			 funcs/unsigned.c\
-			 funcs/bonus.c
+			 funcs/bonus.c\
+			 funcs/func2.c\
+			 funcs/func3.c\
+			 funcs/func4.c\
+			 funcs/func5.c\
+			 funcs/func6.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
